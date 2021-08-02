@@ -38,4 +38,9 @@ class ParkingZone
         arr = spot.split(@seprator)
         @parking.empty_spot(arr[1].to_i-1)
     end
+
+    def search(car_reg='')
+        index = @parking.search(car_reg)
+        spot_number(index+1)
+    end
 end

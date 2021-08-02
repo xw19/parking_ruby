@@ -24,4 +24,14 @@ class ParkingZoneTest < Minitest::Test
         @parking.empty_spot("A-1")
         assert_equal "", @parking.spots[0]
     end
+
+    def test_should_search
+        @parking.park("1")
+        @parking.park("xyz")
+        @parking.park("2")
+        @parking.park("3")
+        @parking.park("4")
+
+        assert_equal "A-1", @parking.search("xyz")
+    end
 end

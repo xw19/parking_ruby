@@ -6,7 +6,7 @@ class ParkingArray
     attr_reader :spots
     
     def initialize(max_spots=5)
-        raise Exception("Total spots cannot be less than 1") if max_spots < 1
+        raise Exception(LESS_THAN_ONE_SPOT) if max_spots < 1
         @spots = Array.new(max_spots, EMPTY)
         @max_spots = max_spots
     end
@@ -26,14 +26,8 @@ class ParkingArray
     end
 
     def remove(car_reg='')
-        car_reg_upcased = car_reg.upcase()
-        @spots.each_with_index do |val, index|
-            if val.eql?(car_reg_upcased)
-                empty_spot(index)
-                return index
-            end
-        end
-        raise StandardError.new(NOT_FOUND)
+        index = search(car_reg)
+        empty_spot(index)
     end
 
     def parked_info(spot)
@@ -50,5 +44,16 @@ class ParkingArray
 
     def empty_spot(index)
         @spots[index] = EMPTY
+        index
+    end
+
+    def search(car_reg='')
+        car_reg_upcased = car_reg.upcase()
+        @spots.each_with_index do |val, index|
+            if val.eql?(car_reg_upcased)
+                return index
+            end
+        end
+        raise StandardError.new(NOT_FOUND)
     end
 end

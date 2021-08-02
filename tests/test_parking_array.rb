@@ -63,4 +63,14 @@ class ParkingZoneTest < Minitest::Test
 
         assert_equal @parking.available_spots, [1]
     end
+
+    def test_should_should_search_by_spot
+        @parking.park("1")
+        @parking.park("xyz")
+        @parking.park("2")
+        @parking.park("3")
+        @parking.park("4")
+
+        assert_equal 1, @parking.search("xyz")
+    end
 end
